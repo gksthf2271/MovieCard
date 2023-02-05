@@ -28,7 +28,8 @@ android {
 
     buildTypes.each {
         it.buildConfigField 'String', 'MOVIE_API_KEY', MOVIE_API_KEY
-        it.buildConfigField 'String', 'NAVER_API_KEY', NAVER_API_KEY
+        it.buildConfigField 'String', 'NAVER_API_ID_KEY', NAVER_API_ID_KEY
+        it.buildConfigField 'String', 'NAVER_API_SECRET_KEY', NAVER_API_SECRET_KEY
         it.buildConfigField 'String', 'FIREBASE_API_KEY', FIREBASE_API_KEY
     }
 
