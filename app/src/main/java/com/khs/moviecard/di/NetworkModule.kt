@@ -1,6 +1,10 @@
 package com.khs.moviecard.di
 
+import com.khs.data.moviesdk_search.MovieSDKService
+import com.khs.data.naver_search.NaverService
 import com.khs.domain.util.Constants.MOVIE_BASE_URL
+import com.khs.domain.util.Constants.NAVER_BASE_URL
+import com.khs.moviecard.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +28,8 @@ object NetworkModule {
             val initialRequest = chain.request()
 
             val newUrl = initialRequest.url.newBuilder()
-                .addQueryParameter("api_key", BuildConfig.MOVIE_API_KEY)
+//                .addQueryParameter("X-Naver-Client-Id", BuildConfig.NAVER_API_ID_KEY)
+//                .addQueryParameter("X-Naver-Client-Secret", BuildConfig.NAVER_API_SECRET_KEY)
                 .build()
 
             val newRequest = initialRequest.newBuilder()
@@ -38,9 +43,6 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        // Retrofit completely relies on OkHttp for any network operation.
-        // Since logging isn’t integrated by default anymore in Retrofit 2,
-        // we'll use a logging interceptor for OkHttp.
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -63,8 +65,19 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(MOVIE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNaverService(retrofit: Retrofit): NaverService {
+        return retrofit.create(NaverService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieSDKService(retrofit: Retrofit): MovieSDKService {
+        return retrofit.create(MovieSDKService::class.java)
     }
 }
