@@ -15,5 +15,5 @@ data class WeeklyBoxOfficeResult(
         @SerializedName("yearWeekTime")
         val yearWeekTime: String,
         @SerializedName("weeklyBoxOfficeList")
-        val weeklyBoxOfficeList: List<BoxOffice>
+        val weeklyBoxOfficeList: List<BoxOfficeResponse>
 )

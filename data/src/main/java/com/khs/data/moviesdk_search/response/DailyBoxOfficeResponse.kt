@@ -14,5 +14,5 @@ data class BoxOfficeResult(
     @SerializedName("showRange")
     val showRange: String,
     @SerializedName("dailyBoxOfficeList")
-    val dailyBoxOfficeList: List<BoxOffice>
+    val dailyBoxOfficeList: List<BoxOfficeResponse>
 )

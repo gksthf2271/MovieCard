@@ -2,7 +2,7 @@ package com.khs.data.moviesdk_search.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BoxOffice(
+data class BoxOfficeResponse(
     @SerializedName("rnum")
     val rnum: String,
     @SerializedName("rank")
