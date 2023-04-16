@@ -25,7 +25,6 @@ data class PeopleInfo(
     val sex: String,
     @SerializedName("repRoleNm")
     val repRoleNm: String,
-
     @SerializedName("homepages")
     val homepages: List<String>,
     @SerializedName("filmos")

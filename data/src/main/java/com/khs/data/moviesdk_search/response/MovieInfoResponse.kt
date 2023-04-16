@@ -33,19 +33,18 @@ data class MovieInfo(
     val prdtStatNm: String,
     @SerializedName("typeNm")
     val typeNm: String,
-
     @SerializedName("nations")
     val nations: List<Nation>,
     @SerializedName("genres")
     val genres: List<Genre>,
     @SerializedName("directors")
-    val directors: List<Director>,
+    val directors: List<FilmCouncilDirector>,
     @SerializedName("actors")
     val actors: List<Actor>,
     @SerializedName("showTypes")
     val showTypes: List<ShowType>,
     @SerializedName("companys")
-    val companys: List<Company>,
+    val companies: List<FilmCouncilCompany>,
     @SerializedName("audits")
     val audits: List<Audit>,
     @SerializedName("staffs")

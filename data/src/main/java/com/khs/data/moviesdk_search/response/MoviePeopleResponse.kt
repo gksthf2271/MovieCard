@@ -11,12 +11,12 @@ data class PeopleListResult(
     @SerializedName("totCnt")
     val totCnt: Int,
     @SerializedName("peopleList")
-    val peopleList: List<MoviePeople>,
+    val peopleList: List<FilmCouncilMoviePeople>,
     @SerializedName("source")
     val source: String
 )
 
-data class MoviePeople(
+data class FilmCouncilMoviePeople(
     @SerializedName("peopleCd")
     val peopleCd: String,
     @SerializedName("peopleNm")

@@ -11,5 +11,5 @@ data class MovieCompanyResult (
     @SerializedName("totCnt")
     val totCnt: Int,
     @SerializedName("companyList")
-    val companyList: List<Company>,
+    val companyList: List<FilmCouncilCompany>,
 )

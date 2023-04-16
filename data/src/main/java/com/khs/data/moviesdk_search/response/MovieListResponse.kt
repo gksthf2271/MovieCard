@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieListResponse(
     @SerializedName("movieListResult")
-    val boxOfficeResult: MovieListResult
+    val movieListResult: MovieListResult
 )
 
 data class MovieListResult(
@@ -13,10 +13,10 @@ data class MovieListResult(
     @SerializedName("source")
     val source: String,
     @SerializedName("movieList")
-    val movieList: List<Movie>
+    val movieList: List<FilmCouncilMovie>
 )
 
-data class Movie(
+data class FilmCouncilMovie(
     @SerializedName("movieCd")
     val movieCd: String,
     @SerializedName("movieNm")
@@ -40,19 +40,19 @@ data class Movie(
     @SerializedName("repGenreNm")
     val repGenreNm: String,
     @SerializedName("directors")
-    val directors: List<Director>,
+    val directors: List<FilmCouncilDirector>,
     @SerializedName("companys")
-    val companys: List<Company>,
+    val companies: List<FilmCouncilCompany>,
 )
 
-data class Director(
+data class FilmCouncilDirector(
     @SerializedName("peopleNm")
     val peopleNm: String,
     @SerializedName("peopleNmEn")
     val peopleNmEn: String
 )
 
-data class Company(
+data class FilmCouncilCompany(
     @SerializedName("companyCd")
     val companyCd: String,
     @SerializedName("companyNm")

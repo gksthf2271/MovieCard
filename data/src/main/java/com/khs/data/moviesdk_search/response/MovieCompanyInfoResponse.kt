@@ -23,7 +23,6 @@ data class CompanyInfo(
     val companyNmEn: String,
     @SerializedName("ceoNm")
     val ceoNm: String,
-
     @SerializedName("parts")
     val parts: List<Part>,
     @SerializedName("filmos")

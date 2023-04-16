@@ -1,5 +1,6 @@
 package com.khs.moviecard.di
 
+import com.khs.data.moviesdk_search.MovieSDKDataSource
 import com.khs.data.moviesdk_search.MovieSDKService
 import com.khs.data.naver_search.NaverService
 import com.khs.domain.util.Constants.MOVIE_BASE_URL
@@ -19,8 +20,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-
     @Singleton
     @Provides
     fun provideAuthInterceptor(): Interceptor {
@@ -79,5 +78,11 @@ object NetworkModule {
     @Singleton
     fun provideMovieSDKService(retrofit: Retrofit): MovieSDKService {
         return retrofit.create(MovieSDKService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFilmCouncilDataSource(retrofit: Retrofit): MovieSDKDataSource {
+        return MovieSDKDataSource(BuildConfig.MOVIE_API_KEY, provideMovieSDKService(retrofit))
     }
 }

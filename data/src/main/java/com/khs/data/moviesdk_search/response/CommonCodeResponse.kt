@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CommonCodeResponse(
     @SerializedName("codes")
-    val boxOfficeResult: WeeklyBoxOfficeResult
+    val codes: List<CommonCode>
 )
 
 data class CommonCode(
