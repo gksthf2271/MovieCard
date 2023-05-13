@@ -3,78 +3,66 @@ package com.khs.data.moviesdk_search
 import com.khs.data.moviesdk_search.response.*
 import com.khs.domain.entity.*
 import com.khs.domain.entity.Filmo
-import com.khs.domain.entity.Movie
-import com.khs.domain.entity.MoviePeople
 import com.khs.domain.entity.Part
-import retrofit2.Response
 
-fun Response<DailyBoxOfficeResponse>.asBoxOffices(): Response<BoxOffices> = Response.success(body()?.let {
-    BoxOffices(
-        boxofficeType = it.boxOfficeResult.boxofficeType,
-        showRange = it.boxOfficeResult.showRange,
-        boxOffices = it.boxOfficeResult.dailyBoxOfficeList.map { boxOfficeResponse -> boxOfficeResponse.asBoxOffice() }
-    )
-})
+fun DailyBoxOfficeResponse.asBoxOffices(): BoxOffices = BoxOffices(
+    boxofficeType = boxOfficeResult.boxofficeType,
+    showRange = boxOfficeResult.showRange,
+    boxOffices = boxOfficeResult.dailyBoxOfficeList.map { boxOfficeResponse -> boxOfficeResponse.asBoxOffice() }
+)
 
-fun Response<WeeklyBoxOfficeResponse>.asBoxOffices(): Response<BoxOffices> = Response.success(body()?.let {
-    BoxOffices(
-        boxofficeType = it.boxOfficeResult.boxofficeType,
-        showRange = it.boxOfficeResult.showRange,
-        boxOffices = it.boxOfficeResult.weeklyBoxOfficeList.map { boxOfficeResponse -> boxOfficeResponse.asBoxOffice() }
-    )
-})
 
-fun Response<CommonCodeResponse>.asCodes(): Response<MovieCodes> = Response.success(body()?.let {
-    MovieCodes(
-        movieCodes = it.codes.map { commonCode ->  commonCode.asCode()}
-    )
-})
+fun WeeklyBoxOfficeResponse.asBoxOffices(): BoxOffices = BoxOffices(
+    boxofficeType = boxOfficeResult.boxofficeType,
+    showRange = boxOfficeResult.showRange,
+    boxOffices = boxOfficeResult.weeklyBoxOfficeList.map { boxOfficeResponse -> boxOfficeResponse.asBoxOffice() }
+)
 
-fun Response<MovieListResponse>.asMovies(): Response<Movies> = Response.success(body()?.let {
-    Movies(
-        totCnt = it.movieListResult.totCnt,
-        source = it.movieListResult.source,
-        movies = it.movieListResult.movieList.map { movie -> movie.asMovie() }
-    )
-})
+fun CommonCodeResponse.asCodes(): MovieCodes = MovieCodes(
+    movieCodes = codes.map { commonCode -> commonCode.asCode() }
+)
 
-fun Response<MovieCompanyResponse>.asCompanies(): Response<MovieCompanyList> = Response.success(body()?.let {
-    MovieCompanyList(
-        totCnt = it.companyListResult.totCnt,
-        companyList = it.companyListResult.companyList.map { filmCouncilCompany ->
-            filmCouncilCompany.asCompany()
-        }
-    )
-})
+fun MovieListResponse.asMovies(): Movies = Movies(
+    totCnt = movieListResult.totCnt,
+    source = movieListResult.source,
+    movies = movieListResult.movieList.map { movie -> movie.asMovie() }
+)
 
-fun Response<MovieInfoResponse>.asMovie(): Response<Movie> = Response.success(body()?.movieInfoResult?.movieInfo?.let {
+fun MovieCompanyResponse.asCompanies(): MovieCompanyList = MovieCompanyList(
+    totCnt = companyListResult.totCnt,
+    companyList = companyListResult.companyList.map { filmCouncilCompany ->
+        filmCouncilCompany.asCompany()
+    }
+)
+
+fun MovieInfoResponse.asMovie(): Movie = with(movieInfoResult.movieInfo) {
     Movie(
-        movieCd = it.movieCd,
-        movieNm = it.movieNm,
-        movieNmEn = it.movieNmEn,
-        movieNmOg = it.movieNmOg,
-        showTm = it.showTm,
-        prdtYear = it.prdtYear,
-        openDt = it.openDt,
-        prdtStatNm = it.prdtStatNm,
-        typeNm = it.typeNm,
-        nations = it.nations.map { nation ->
+        movieCd = movieCd,
+        movieNm = movieNm,
+        movieNmEn = movieNmEn,
+        movieNmOg = movieNmOg,
+        showTm = showTm,
+        prdtYear = prdtYear,
+        openDt = openDt,
+        prdtStatNm = prdtStatNm,
+        typeNm = typeNm,
+        nations = nations.map { nation ->
             MovieNation(
                 nationNm = nation.nationNm
             )
         },
-        genres = it.genres.map { genre ->
+        genres = genres.map { genre ->
             MovieGenre(
                 genreNm = genre.genreNm
             )
         },
-        directors = it.directors.map { filmCouncilDirector ->
+        directors = directors.map { filmCouncilDirector ->
             MovieDirector(
                 peopleNm = filmCouncilDirector.peopleNm,
                 peopleNmEn = filmCouncilDirector.peopleNmEn
             )
         },
-        actors = it.actors.map { actor ->
+        actors = actors.map { actor ->
             MovieActor(
                 peopleNm = actor.peopleNm,
                 peopleNmEn = actor.peopleNmEn,
@@ -82,22 +70,22 @@ fun Response<MovieInfoResponse>.asMovie(): Response<Movie> = Response.success(bo
                 castEn = actor.castEn
             )
         },
-        showTypes = it.showTypes.map { showType ->
+        showTypes = showTypes.map { showType ->
             MovieShowType(
                 showTypeGroupNm = showType.showTypeGroupNm,
                 showTypeNm = showType.showTypeNm
             )
         },
-        companies = it.companies.map { filmCouncilCompany ->
+        companies = companies.map { filmCouncilCompany ->
             filmCouncilCompany.asCompany()
         },
-        audits = it.audits.map { audit ->
+        audits = audits.map { audit ->
             MovieAudit(
                 auditNo = audit.auditNo,
                 watchGradeNm = audit.watchGradeNm
             )
         },
-        staffs = it.staffs.map { staff ->
+        staffs = staffs.map { staff ->
             MovieStaff(
                 peopleNm = staff.peopleNm,
                 peopleNmEn = staff.peopleNmEn,
@@ -105,12 +93,12 @@ fun Response<MovieInfoResponse>.asMovie(): Response<Movie> = Response.success(bo
             )
         },
     )
-})
+}
 
-fun Response<MovieCompanyInfoResponse>.asCompany(): Response<MovieCompanyList> = Response.success(body()?.companyInfoResult?.companyInfo?.let{
+fun MovieCompanyInfoResponse.asCompany(): MovieCompanyList = with(companyInfoResult.companyInfo) {
     MovieCompanyList(
-        totCnt = it.size,
-        companyList = it.map { companyInfo ->
+        totCnt = size,
+        companyList = map { companyInfo ->
             MovieCompany(
                 companyCd = companyInfo.companyCd,
                 companyNm = companyInfo.companyNm,
@@ -130,38 +118,38 @@ fun Response<MovieCompanyInfoResponse>.asCompany(): Response<MovieCompanyList> =
             )
         }
     )
-})
+}
 
-fun Response<MoviePeopleResponse>.asPeoples(): Response<MoviePeoples> = Response.success(body()?.peopleListResult?.let {
-        MoviePeoples(
-            totCnt = it.totCnt,
-            source = it.source,
-            peopleList = it.peopleList.map { filmCouncilMoviePeople ->
-                filmCouncilMoviePeople.asPeople()
-            }
-        )
-    })
+fun MoviePeopleResponse.asPeoples(): MoviePeoples = with(peopleListResult) {
+    MoviePeoples(
+        totCnt = totCnt,
+        source = source,
+        peopleList = peopleList.map { filmCouncilMoviePeople ->
+            filmCouncilMoviePeople.asPeople()
+        }
+    )
+}
 
-fun Response<MoviePeopleInfoResponse>.asPeople(): Response<MoviePeople> = Response.success(body()?.peopleInfoResult?.peopleInfo?.let {
-        MoviePeople(
-            peopleCd = it.peopleCd,
-            peopleNm = it.peopleNm,
-            peopleNmEn = it.peopleNmEn,
-            sex = it.sex,
-            repRoleNm = it.repRoleNm,
-            homepages = it.homepages,
-            filmos = it.filmos.map { filmo ->
-                Filmo(
-                    movieCd = filmo.movieCd,
-                    movieNm = filmo.movieNm,
-                    companyPartNm= filmo.companyPartNm,
-                    moviePartNm = filmo.moviePartNm
-                )
-            }
-        )
-    })
+fun MoviePeopleInfoResponse.asPeople(): MoviePeople = with(peopleInfoResult.peopleInfo) {
+    MoviePeople(
+        peopleCd = peopleCd,
+        peopleNm = peopleNm,
+        peopleNmEn = peopleNmEn,
+        sex = sex,
+        repRoleNm = repRoleNm,
+        homepages = homepages,
+        filmos = filmos.map { filmo ->
+            Filmo(
+                movieCd = filmo.movieCd,
+                movieNm = filmo.movieNm,
+                companyPartNm = filmo.companyPartNm,
+                moviePartNm = filmo.moviePartNm
+            )
+        }
+    )
+}
 
-fun BoxOfficeResponse.asBoxOffice() : BoxOffice = run {
+fun BoxOfficeResponse.asBoxOffice(): BoxOffice = run {
     return BoxOffice(
         id = "",
         rnum = rnum,
@@ -185,7 +173,7 @@ fun BoxOfficeResponse.asBoxOffice() : BoxOffice = run {
     )
 }
 
-fun CommonCode.asCode() : MovieCode = run {
+fun CommonCode.asCode(): MovieCode = run {
     return MovieCode(
         fullCd = fullCd,
         korNm = korNm,
@@ -193,7 +181,7 @@ fun CommonCode.asCode() : MovieCode = run {
     )
 }
 
-fun FilmCouncilMovie.asMovie() : Movie = run {
+fun FilmCouncilMovie.asMovie(): Movie = run {
     return Movie(
         movieCd = movieCd,
         movieNm = movieNm,
@@ -218,7 +206,7 @@ fun FilmCouncilMovie.asMovie() : Movie = run {
     )
 }
 
-fun FilmCouncilCompany.asCompany() : MovieCompany = run {
+fun FilmCouncilCompany.asCompany(): MovieCompany = run {
     return MovieCompany(
         companyCd = companyCd,
         companyNm = companyNm,
@@ -230,7 +218,7 @@ fun FilmCouncilCompany.asCompany() : MovieCompany = run {
     )
 }
 
-fun  FilmCouncilMoviePeople.asPeople() : MoviePeople = run {
+fun FilmCouncilMoviePeople.asPeople(): MoviePeople = run {
     return MoviePeople(
         peopleCd = peopleCd,
         peopleNm = peopleNm,

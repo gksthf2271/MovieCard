@@ -1,8 +1,9 @@
 package com.khs.domain.filmCouncil.usecase
 
+import com.khs.domain.entity.CommonApiResult
 import com.khs.domain.entity.MovieCompanyList
 import com.khs.domain.filmCouncil.gateway.FilmCouncilGateway
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchMovieCompanyUseCase @Inject constructor(
@@ -15,7 +16,7 @@ class SearchMovieCompanyUseCase @Inject constructor(
         companyNm: String? = "",
         ceoNm: String? = "",
         companyPartCd: String = "",
-    ): Response<MovieCompanyList> {
+    ): Flow<CommonApiResult<MovieCompanyList>> {
         return filmCouncilGateway.searchMovieCompany(
             curPage,
             itemPerPage,
@@ -25,7 +26,7 @@ class SearchMovieCompanyUseCase @Inject constructor(
         )
     }
 
-    suspend fun searchMovieCompanyInfo(companyCd: String): Response<MovieCompanyList> {
+    suspend fun searchMovieCompanyInfo(companyCd: String): Flow<CommonApiResult<MovieCompanyList>> {
         return filmCouncilGateway.searchMovieCompanyInfo(companyCd)
     }
 }

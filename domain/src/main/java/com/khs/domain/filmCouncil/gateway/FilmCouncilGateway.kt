@@ -1,10 +1,10 @@
 package com.khs.domain.filmCouncil.gateway
 
 import com.khs.domain.entity.*
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 
 interface FilmCouncilGateway {
-    suspend fun getDailyBoxOffice(targetDt: String): Response<BoxOffices>
+    suspend fun getDailyBoxOffice(targetDt: String): Flow<CommonApiResult<BoxOffices>>
 
     suspend fun getWeeklyBoxOffice(
         targetDt: String,
@@ -13,9 +13,9 @@ interface FilmCouncilGateway {
         multiMovieYn: String?,
         repNationCd: String?,
         wideAreaCd: String?
-    ): Response<BoxOffices>
+    ): Flow<CommonApiResult<BoxOffices>>
 
-    suspend fun getCommonCode(comCode: String): Response<MovieCodes>
+    suspend fun getCommonCode(comCode: String): Flow<CommonApiResult<MovieCodes>>
 
     suspend fun searchMovieList(
         curPage: String? = "",
@@ -28,9 +28,9 @@ interface FilmCouncilGateway {
         prdtEndYear: String? = "",
         repNationCd: String? = "",
         movieTypeCd: String? = ""
-    ): Response<Movies>
+    ): Flow<CommonApiResult<Movies>>
 
-    suspend fun searchMovie(movieCd: String): Response<Movie>
+    suspend fun searchMovie(movieCd: String): Flow<CommonApiResult<Movie>>
 
     suspend fun searchMovieCompany(
         curPage: String?,
@@ -38,16 +38,16 @@ interface FilmCouncilGateway {
         companyNm: String?,
         ceoNm: String?,
         companyPartCd: String?
-    ): Response<MovieCompanyList>
+    ): Flow<CommonApiResult<MovieCompanyList>>
 
-    suspend fun searchMovieCompanyInfo(companyCd: String): Response<MovieCompanyList>
+    suspend fun searchMovieCompanyInfo(companyCd: String): Flow<CommonApiResult<MovieCompanyList>>
 
     suspend fun searchMoviePeoples(
         curPage: String?,
         itemPerPage: String?,
         peopleNm: String?,
         filmoNames: String?
-    ): Response<MoviePeoples>
+    ): Flow<CommonApiResult<MoviePeoples>>
 
-    suspend fun searchMoviePeopleInfo(peopleCd: String): Response<MoviePeople>
+    suspend fun searchMoviePeopleInfo(peopleCd: String): Flow<CommonApiResult<MoviePeople>>
 }

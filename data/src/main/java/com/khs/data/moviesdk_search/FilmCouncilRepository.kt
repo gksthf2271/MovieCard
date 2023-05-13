@@ -2,13 +2,13 @@ package com.khs.data.moviesdk_search
 
 import com.khs.domain.entity.*
 import com.khs.domain.filmCouncil.gateway.FilmCouncilGateway
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FilmCouncilRepository @Inject constructor(
     private val movieSDKDataSource: MovieSDKDataSource
 ) : FilmCouncilGateway {
-    override suspend fun getDailyBoxOffice(targetDt: String): Response<BoxOffices> =
+    override suspend fun getDailyBoxOffice(targetDt: String): Flow<CommonApiResult<BoxOffices>> =
         movieSDKDataSource.getDailyBoxOffice(targetDt)
 
     override suspend fun getWeeklyBoxOffice(
@@ -18,7 +18,7 @@ class FilmCouncilRepository @Inject constructor(
         multiMovieYn: String?,
         repNationCd: String?,
         wideAreaCd: String?
-    ): Response<BoxOffices> = movieSDKDataSource.getWeeklyBoxOffice(
+    ): Flow<CommonApiResult<BoxOffices>> = movieSDKDataSource.getWeeklyBoxOffice(
         targetDt,
         weekGb,
         itemPerPage,
@@ -27,7 +27,7 @@ class FilmCouncilRepository @Inject constructor(
         wideAreaCd
     )
 
-    override suspend fun getCommonCode(comCode: String): Response<MovieCodes> =
+    override suspend fun getCommonCode(comCode: String): Flow<CommonApiResult<MovieCodes>> =
         movieSDKDataSource.getCommonCode(comCode)
 
     override suspend fun searchMovieList(
@@ -41,7 +41,7 @@ class FilmCouncilRepository @Inject constructor(
         prdtEndYear: String?,
         repNationCd: String?,
         movieTypeCd: String?
-    ): Response<Movies> = movieSDKDataSource.searchMovieList(
+    ): Flow<CommonApiResult<Movies>> = movieSDKDataSource.searchMovieList(
         curPage,
         itemPerpage,
         movieNm,
@@ -54,7 +54,7 @@ class FilmCouncilRepository @Inject constructor(
         movieTypeCd
     )
 
-    override suspend fun searchMovie(movieCd: String): Response<Movie> =
+    override suspend fun searchMovie(movieCd: String): Flow<CommonApiResult<Movie>> =
         movieSDKDataSource.searchMovie(movieCd)
 
     override suspend fun searchMovieCompany(
@@ -63,10 +63,10 @@ class FilmCouncilRepository @Inject constructor(
         companyNm: String?,
         ceoNm: String?,
         companyPartCd: String?
-    ): Response<MovieCompanyList> =
+    ): Flow<CommonApiResult<MovieCompanyList>> =
         movieSDKDataSource.searchMovieCompany(curPage, itemPerPage, companyNm, ceoNm, companyPartCd)
 
-    override suspend fun searchMovieCompanyInfo(companyCd: String): Response<MovieCompanyList> =
+    override suspend fun searchMovieCompanyInfo(companyCd: String): Flow<CommonApiResult<MovieCompanyList>> =
         movieSDKDataSource.searchMovieCompanyInfo(companyCd)
 
     override suspend fun searchMoviePeoples(
@@ -74,9 +74,9 @@ class FilmCouncilRepository @Inject constructor(
         itemPerPage: String?,
         peopleNm: String?,
         filmoNames: String?
-    ): Response<MoviePeoples> =
+    ): Flow<CommonApiResult<MoviePeoples>> =
         movieSDKDataSource.searchMoviePeoples(curPage, itemPerPage, peopleNm, filmoNames)
 
-    override suspend fun searchMoviePeopleInfo(peopleCd: String): Response<MoviePeople> =
+    override suspend fun searchMoviePeopleInfo(peopleCd: String): Flow<CommonApiResult<MoviePeople>> =
         movieSDKDataSource.searchMoviePeopleInfo(peopleCd)
 }

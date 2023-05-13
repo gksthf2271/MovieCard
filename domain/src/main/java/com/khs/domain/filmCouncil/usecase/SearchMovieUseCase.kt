@@ -1,9 +1,10 @@
 package com.khs.domain.filmCouncil.usecase
 
+import com.khs.domain.entity.CommonApiResult
 import com.khs.domain.entity.Movie
 import com.khs.domain.entity.Movies
 import com.khs.domain.filmCouncil.gateway.FilmCouncilGateway
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchMovieUseCase @Inject constructor(
@@ -15,11 +16,11 @@ class SearchMovieUseCase @Inject constructor(
                                 itemPerPage: String? = "",
                                 multiMovieYn: String? = "",
                                 repNationCd: String? = "",
-                                wideAreaCd: String? = ""): Response<Movies> {
+                                wideAreaCd: String? = ""): Flow<CommonApiResult<Movies>> {
         return filmCouncilGateway.searchMovieList(targetDt, weekGb, itemPerPage, multiMovieYn, repNationCd, wideAreaCd)
     }
 
-    suspend fun searchMovie(movieCd: String): Response<Movie> {
+    suspend fun searchMovie(movieCd: String): Flow<CommonApiResult<Movie>> {
         return filmCouncilGateway.searchMovie(movieCd = movieCd)
     }
 }

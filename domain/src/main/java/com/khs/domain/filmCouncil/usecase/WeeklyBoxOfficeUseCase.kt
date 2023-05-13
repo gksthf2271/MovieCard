@@ -1,8 +1,9 @@
 package com.khs.domain.filmCouncil.usecase
 
 import com.khs.domain.entity.BoxOffices
+import com.khs.domain.entity.CommonApiResult
 import com.khs.domain.filmCouncil.gateway.FilmCouncilGateway
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WeeklyBoxOfficeUseCase @Inject constructor(
@@ -14,7 +15,7 @@ class WeeklyBoxOfficeUseCase @Inject constructor(
                                 itemPerPage: String? = "",
                                 multiMovieYn: String? = "",
                                 repNationCd: String? = "",
-                                wideAreaCd: String? = ""): Response<BoxOffices> {
+                                wideAreaCd: String? = ""): Flow<CommonApiResult<BoxOffices>> {
         return filmCouncilGateway.getWeeklyBoxOffice(targetDt, weekGb, itemPerPage, multiMovieYn, repNationCd, wideAreaCd)
     }
 }
