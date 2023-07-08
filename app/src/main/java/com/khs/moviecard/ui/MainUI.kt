@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -31,6 +33,7 @@ fun MainUI() {
         MainActivity.Screen.Chart,
         MainActivity.Screen.Favorite
     )
+
     Surface(color = MaterialTheme.colors.background) {
         val navController = rememberNavController()
         Scaffold(
@@ -39,8 +42,9 @@ fun MainUI() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
                     menuList.forEach { screen ->
+                        val iconImgVector = ImageVector.vectorResource(screen.drawable)
                         BottomNavigationItem(
-                            icon = { Icon(, contentDescription = null) },
+                            icon = { Icon(iconImgVector, contentDescription = null) },
                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                             onClick = {
                                 navController.navigate(screen.route) {
