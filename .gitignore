@@ -87,4 +87,4 @@ lint/tmp/
 
 
 gradle.properties
-
+*google-services.json
