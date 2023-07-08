@@ -4,6 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.kapt'
     id 'dagger.hilt.android.plugin'
     id 'maven-publish'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -108,4 +109,7 @@ dependencies {
 
     // Google
     implementation "com.google.android.material:material:${Google.material}"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
 }
